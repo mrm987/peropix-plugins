@@ -3,6 +3,7 @@
 name: Check index
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - "index.json"
