@@ -105,6 +105,8 @@ my-plugin/
   답은 `{ type: "peropix", id: 1, ok, result | error }` 로 옵니다. `call` 은 `action`·`state`·`openCanvas`·
   `toast`·`theme`·`t`·`plugin` 중 하나입니다. 바탕색은 페이지가 정합니다 — 안 칠하면 앱의 캔버스 바탕이 테마대로
   비치고, 칠하려면 `theme("--panel")` 같은 앱 색을 받아 테마를 따르든 한 색으로 고정하든 자유입니다 (글자색은 직접 칠하세요).
+  `theme()` 은 부른 시점의 값이라, 앱이 테마를 바꿔도 다시 부르기 전에는 안 바뀝니다. 콘텐츠는 의도한 색으로 칠하고
+  그 밖만 투명하게 두는 것이 가장 단순합니다 (카메라 플러그인이 그렇습니다).
 - **확장** (`ext/*.js`): `window.peropix.registerExtension({ name, setup(api) })` 로 시작합니다. `api` 에는
   `addButton("generate.footer" | "nav.right", { label, icon, onClick })`,
   `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`, `openCanvas(id)`,

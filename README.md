@@ -115,6 +115,8 @@ my-plugin/
   `action`, `state`, `openCanvas`, `toast`, `theme`, `t`, `plugin`. The page owns its background: leave it unpainted and the app's
   canvas background shows through, following the theme; or paint it yourself, either from `theme("--panel")` to follow the
   theme or with one fixed color (set your own text color either way).
+  `theme()` returns the value at call time; it does not update when the app switches themes until you call it again. The
+  simplest layout is to paint your content in the colors you intend and leave only the outside transparent (the camera plugin does this).
 - **Extension** (`ext/*.js`): starts with
   `window.peropix.registerExtension({ name, setup(api) })`. The `api` offers
   `addButton("generate.footer" | "nav.right", { label, icon, onClick })`,
