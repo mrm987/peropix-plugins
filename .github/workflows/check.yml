@@ -1,5 +1,5 @@
 # index.json 을 고치는 PR 을 검사한다 — 항목 모양과, 그 태그에 plugin.json 이 있고 id 가 맞는지.
-# 코드는 보지 않는다 (README 「알아 둘 것」). 검사 내용은 scripts/check.mjs 하나다.
+# 코드는 보지 않는다 (README 첫머리의 세 원칙). 검사 내용은 scripts/check.mjs 하나다.
 name: Check index
 
 on:
