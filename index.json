@@ -1,3 +1,11 @@
 {
-  "items": []
+  "items": [
+    {
+      "id": "camera",
+      "repo": "mrm987/peropix-plugin-camera",
+      "tag": "v1.0.1",
+      "name": "카메라 구도",
+      "description": "인물을 돌려 보며 방위·높이·거리를 고르면 구도 태그와 가중치를 만든다. 목록 설치 시험용 사본 (원본은 앱 번들)."
+    }
+  ]
 }
