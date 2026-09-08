@@ -60,6 +60,10 @@ idea: code in your repo, an entry in the list.
    not review your code. When the check is green the entry is merged and appears in the app
    the next time a user opens the Manage tab.
 
+   **Ids and names are unique.** An id or name that belongs to a plugin bundled with the app,
+   or that is already in the list, is rejected. Once registered, an id is bound to its
+   repository: only the original author can move it to another repository.
+
 **Releasing a new version** is the same: push a new tag, then open a pull request that
 changes `tag` (and `version`, if you set it).
 
