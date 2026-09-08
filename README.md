@@ -14,7 +14,7 @@ Your code stays in your repository. This repository holds only the list.
 
 ---
 
-PeroPix shows this list in **Plugins → Manage → Available**. Each entry points at a tag in
+PeroPix shows this list in **Plugins → Manage → Plugin list**. Each entry points at a tag in
 the author's own GitHub repository; the app downloads that tag as a zip and drops it into
 its `plugins/` folder. Nothing is copied here, so your license, your issues, and your
 release cycle stay yours. If you have published a ComfyUI custom node, this is the same
