@@ -105,7 +105,8 @@ my-plugin/
   アプリに何かをさせるには親ウィンドウへメッセージを送ります:
   `parent.postMessage({ type: "peropix", id: 1, call: "action", name: "<アクション>", args: {...} }, "*")`
   返事は `{ type: "peropix", id: 1, ok, result | error }` です。`call` は `action`・`state`・`openCanvas`・
-  `toast`・`theme`・`t`・`plugin` のいずれかです。
+  `toast`・`theme`・`t`・`plugin` のいずれかです。背景色はページ側で決めます — `theme("--panel")` でアプリの色を受け取って
+  body に塗ればアプリと同じ面になり、塗らなければアプリのキャンバス背景がそのまま透けます (文字色は自分で塗ってください)。
 - **拡張** (`ext/*.js`): `window.peropix.registerExtension({ name, setup(api) })` から始めます。`api` には
   `addButton("generate.footer" | "nav.right", { label, icon, onClick })`,
   `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`, `openCanvas(id)`,
