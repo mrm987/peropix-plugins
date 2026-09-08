@@ -112,9 +112,9 @@ my-plugin/
   directly. To make the app do something, post a message to the parent window:
   `parent.postMessage({ type: "peropix", id: 1, call: "action", name: "<action>", args: {...} }, "*")`
   and read the reply `{ type: "peropix", id: 1, ok, result | error }`. `call` is one of
-  `action`, `state`, `openCanvas`, `toast`, `theme`, `t`, `plugin`. The page owns its background: paint the body with
-  the color from `theme("--panel")` to match the app, or leave it unpainted and the app's canvas background shows through
-  (set your own text color either way).
+  `action`, `state`, `openCanvas`, `toast`, `theme`, `t`, `plugin`. The page owns its background: leave it unpainted and the app's
+  canvas background shows through, following the theme; or paint it yourself, either from `theme("--panel")` to follow the
+  theme or with one fixed color (set your own text color either way).
 - **Extension** (`ext/*.js`): starts with
   `window.peropix.registerExtension({ name, setup(api) })`. The `api` offers
   `addButton("generate.footer" | "nav.right", { label, icon, onClick })`,

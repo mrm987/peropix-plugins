@@ -103,8 +103,8 @@ my-plugin/
   부모 창에 메시지로 보냅니다:
   `parent.postMessage({ type: "peropix", id: 1, call: "action", name: "<액션>", args: {...} }, "*")`
   답은 `{ type: "peropix", id: 1, ok, result | error }` 로 옵니다. `call` 은 `action`·`state`·`openCanvas`·
-  `toast`·`theme`·`t`·`plugin` 중 하나입니다. 바탕색은 페이지가 정합니다 — `theme("--panel")` 로 앱의 색을 받아
-  body 에 칠하면 앱과 같은 면이 되고, 안 칠하면 앱의 캔버스 바탕이 그대로 비칩니다 (글자색은 직접 칠하세요).
+  `toast`·`theme`·`t`·`plugin` 중 하나입니다. 바탕색은 페이지가 정합니다 — 안 칠하면 앱의 캔버스 바탕이 테마대로
+  비치고, 칠하려면 `theme("--panel")` 같은 앱 색을 받아 테마를 따르든 한 색으로 고정하든 자유입니다 (글자색은 직접 칠하세요).
 - **확장** (`ext/*.js`): `window.peropix.registerExtension({ name, setup(api) })` 로 시작합니다. `api` 에는
   `addButton("generate.footer" | "nav.right", { label, icon, onClick })`,
   `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`, `openCanvas(id)`,
