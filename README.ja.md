@@ -107,8 +107,9 @@ my-plugin/
   返事は `{ type: "peropix", id: 1, ok, result | error }` です。`call` は `action`・`state`・`openCanvas`・
   `toast`・`theme`・`t`・`plugin` のいずれかです。背景色はページ側で決めます — 塗らなければアプリのキャンバス背景がテーマどおりに
   透け、塗るなら `theme("--panel")` などでアプリの色を受け取ってテーマに追従させても、一色に固定しても自由です (文字色は自分で塗ってください)。
-  `theme()` は呼んだ時点の値なので、アプリのテーマが変わっても呼び直すまで変わりません。コンテンツは意図した色で塗り、
-  その外だけ透明にしておくのが最も単純です (カメラプラグインがそうしています)。
+  テーマが変わるとアプリがキャンバスに `{ type: "peropix", event: "theme", theme: "dark" | "light" }` を送るので、
+  追従したければそのとき `theme("--panel")` などを取り直して塗ってください (`theme` を名前なしで呼ぶと今のテーマ名)。
+  コンテンツは意図した色で塗り、その外だけ透明にしておくのが最も単純です (カメラプラグインがそうしています)。
 - **拡張** (`ext/*.js`): `window.peropix.registerExtension({ name, setup(api) })` から始めます。`api` には
   `addButton("generate.footer" | "nav.right", { label, icon, onClick })`,
   `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`, `openCanvas(id)`,
