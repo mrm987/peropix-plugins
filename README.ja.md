@@ -101,6 +101,14 @@ my-plugin/
 - **Python** (`server.py`): フォルダ内の他のファイルはパッケージとして import します(`from . import x`)。
   アプリ自身のモジュールもそのまま import できます。アプリに何かをさせるには `from plugins import host` の
   あと `await host.action("<アクション>", {...})`。アクション名と引数は `GET /api/agent/tools` が返すものと同じです。
+- **共通アセット** — アプリがプラグインと同じオリジンで 2 つを配信します。ページの head に 2 行入れるだけです:
+  ```html
+  <link rel="stylesheet" href="/plug/_app/base.css">
+  <script src="/plug/_app/peropix.js"></script>
+  ```
+  `base.css` はクラスなしでも `<button>`・`<input>`・`<table>` をアプリの見た目にし、アプリのテーマに追従します。
+  `peropix.js` は `peropix.action(...)`・`state()`・`toast()`・`theme()`・`onTheme()`・`openCanvas()` を提供します。
+  アプリ外(ただのブラウザ)で開くと `peropix.inApp` が false になり、アプリ呼び出しは静かに失敗します。
 - **キャンバス** (`web/`): アプリのバックエンドが配信するので、ページからバックエンド API を直接呼べます。
   アプリに何かをさせるには親ウィンドウへメッセージを送ります:
   `parent.postMessage({ type: "peropix", id: 1, call: "action", name: "<アクション>", args: {...} }, "*")`

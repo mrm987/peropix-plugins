@@ -99,6 +99,14 @@ my-plugin/
 - **파이썬** (`server.py`): 폴더 안의 다른 파일은 패키지로 부릅니다(`from . import x`). 앱의 모듈도 그대로
   import 할 수 있습니다. 앱에 무언가 시키려면 `from plugins import host` 뒤에
   `await host.action("<액션>", {...})`. 액션 이름과 인자는 `GET /api/agent/tools` 가 돌려주는 것과 같습니다.
+- **공통 자산** — 앱이 플러그인과 같은 오리진에 둘을 서빙합니다. 페이지 머리에 두 줄만 넣으면 됩니다:
+  ```html
+  <link rel="stylesheet" href="/plug/_app/base.css">
+  <script src="/plug/_app/peropix.js"></script>
+  ```
+  `base.css` 는 클래스를 안 붙여도 `<button>`·`<input>`·`<table>` 을 앱 모양으로 그리고, 앱 테마를 따라갑니다.
+  `peropix.js` 는 `peropix.action(...)`·`state()`·`toast()`·`theme()`·`onTheme()`·`openCanvas()` 를 줍니다 (아래 postMessage 를 감싼 것).
+  앱 밖(그냥 브라우저)에서 열면 `peropix.inApp` 이 false 이고 앱 호출은 조용히 실패하므로, 크롬에서 만들다가 멈추지 않습니다.
 - **캔버스** (`web/`): 앱 백엔드가 서빙하므로 페이지가 백엔드 API 를 직접 부를 수 있습니다. 앱에 시킬 것은
   부모 창에 메시지로 보냅니다:
   `parent.postMessage({ type: "peropix", id: 1, call: "action", name: "<액션>", args: {...} }, "*")`

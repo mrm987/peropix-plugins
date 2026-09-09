@@ -108,6 +108,14 @@ my-plugin/
   (`from . import x`). The app's own modules can be imported directly. To make the app do
   something, `from plugins import host` and `await host.action("<action>", {...})`.
   Actions and their arguments are what `GET /api/agent/tools` returns.
+- **Shared assets** — the app serves two files from the same origin as your plugin. Two lines in your page's head:
+  ```html
+  <link rel="stylesheet" href="/plug/_app/base.css">
+  <script src="/plug/_app/peropix.js"></script>
+  ```
+  `base.css` styles bare `<button>`, `<input>` and `<table>` to match the app and follows the app theme.
+  `peropix.js` gives you `peropix.action(...)`, `state()`, `toast()`, `theme()`, `onTheme()` and `openCanvas()`.
+  Opened outside the app (plain browser) `peropix.inApp` is false and app calls fail quietly, so you can build in Chrome.
 - **Canvas** (`web/`): served from the app backend, so the page can call the backend API
   directly. To make the app do something, post a message to the parent window:
   `parent.postMessage({ type: "peropix", id: 1, call: "action", name: "<action>", args: {...} }, "*")`
