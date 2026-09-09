@@ -115,6 +115,9 @@ my-plugin/
   `action`, `state`, `openCanvas`, `toast`, `theme`, `t`, `plugin`. The page owns its background: leave it unpainted and the app's
   canvas background shows through, following the theme; or paint it yourself, either from `theme("--panel")` to follow the
   theme or with one fixed color (set your own text color either way).
+  `canvas: { width, height, minWidth, minHeight, fit }` in `plugin.json` sets the frame's initial and minimum size and how it
+  fits: `"scale"` (default: the page is laid out at its design width and scaled to the frame width, height flows) or `"flow"`
+  (the page grows like a window and content reflows — for responsive pages). Omitted: scale, 720×480.
   When the theme changes the app posts `{ type: "peropix", event: "theme", theme: "dark" | "light" }` to every open canvas;
   to follow it, re-read `theme("--panel")` etc. then (`theme` with no name returns the current theme name). The simplest
   layout is to paint your content in the colors you intend and leave only the outside transparent (the camera plugin does this).

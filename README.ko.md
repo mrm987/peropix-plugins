@@ -105,6 +105,9 @@ my-plugin/
   답은 `{ type: "peropix", id: 1, ok, result | error }` 로 옵니다. `call` 은 `action`·`state`·`openCanvas`·
   `toast`·`theme`·`t`·`plugin` 중 하나입니다. 바탕색은 페이지가 정합니다 — 안 칠하면 앱의 캔버스 바탕이 테마대로
   비치고, 칠하려면 `theme("--panel")` 같은 앱 색을 받아 테마를 따르든 한 색으로 고정하든 자유입니다 (글자색은 직접 칠하세요).
+  `plugin.json` 의 `canvas: { width, height, minWidth, minHeight, fit }` 가 캔버스 프레임의 처음·최소 크기와 맞춤 방식입니다.
+  `fit` 은 `"scale"`(기본: 설계 폭의 페이지를 프레임 폭에 맞춰 통째로 확대·축소, 높이는 흐름) 또는 `"flow"`(창처럼 늘어나고
+  콘텐츠는 그대로 줄바꿈 — 반응형으로 만들었을 때). 안 적으면 배율 방식 720×480 입니다.
   테마가 바뀌면 앱이 캔버스에 `{ type: "peropix", event: "theme", theme: "dark" | "light" }` 를 보내니, 따르고 싶으면
   그때 `theme("--panel")` 등을 다시 받아 칠하면 됩니다 (`theme` 을 이름 없이 부르면 지금 테마 이름). 콘텐츠는 의도한
   색으로 칠하고 그 밖만 투명하게 두는 것이 가장 단순합니다 (카메라 플러그인이 그렇습니다).
