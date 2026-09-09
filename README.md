@@ -116,8 +116,9 @@ my-plugin/
   canvas background shows through, following the theme; or paint it yourself, either from `theme("--panel")` to follow the
   theme or with one fixed color (set your own text color either way).
   `canvas: { width, height, minWidth, minHeight, fit }` in `plugin.json` sets the frame's initial and minimum size and how it
-  fits: `"scale"` (default: the page is laid out at its design width and scaled to the frame width, height flows) or `"flow"`
-  (the page grows like a window and content reflows — for responsive pages). Omitted: scale, 720×480.
+  fits: `"flow"` (default: the frame is a real browser window — text stays its natural size and the page reflows as you resize)
+  or `"scale"` (the page is laid out at its design width and CSS-scaled to the frame width; text blurs, so only for fixed boards).
+  Omitted: flow, 720×480. To let content grow with the frame, avoid a max-width on your page and use `width: 100%`.
   When the theme changes the app posts `{ type: "peropix", event: "theme", theme: "dark" | "light" }` to every open canvas;
   to follow it, re-read `theme("--panel")` etc. then (`theme` with no name returns the current theme name). The simplest
   layout is to paint your content in the colors you intend and leave only the outside transparent (the camera plugin does this).
