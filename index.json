@@ -11,7 +11,7 @@
     {
       "id": "tag-roll",
       "repo": "mrm987/peropix-plugin-tag-roll",
-      "tag": "v1.0.0",
+      "tag": "v1.0.1",
       "name": "태그 굴리기",
       "description": "태그 하나에서 출발해 부위별로 캐릭터 디자인·표정·포즈·씬을 danbooru 통계에서 뽑는다. 「지금 씬에 넣기」가 캐릭터 카드와 스타일 카드를 채운다. 처음 열 때 색인 약 960MB 를 내려받는다.",
       "official": true
