@@ -87,6 +87,7 @@ my-plugin/
   web/index.html     optional  a canvas — one tab in the Plugins mode
   ext/main.js        optional  JavaScript that runs inside the app page (buttons, menus)
   requirements.txt   optional  pip-installed into `_lib/` with the app's Python on install
+  _data/             (not created by the app) what the plugin downloads — survives updates; see below
 ```
 
 `plugin.json`:
@@ -144,12 +145,42 @@ my-plugin/
   `openCanvas(id)`, `theme(name)` and `toast(text)`.
 - **Buttons without code**: `contributes.buttons` adds a button to a slot; `do` is either
   `"openCanvas"` or `{ "action": "<action>", "args": {...} }`.
-- A working example: [Camera Angle](https://github.com/mrm987/peropix-plugin-camera). Official plugins live in their author's repository and ship through
+- Working examples: [Camera Angle](https://github.com/mrm987/peropix-plugin-camera) (canvas only) and
+  [Tag Roll](https://github.com/mrm987/peropix-plugin-tag-roll) (a Python router plus a 960 MB index it downloads itself). Official plugins live in their author's repository and ship through
   this list like every other plugin — nothing is bundled with the app.
-  in the app repository — a canvas-only plugin.
 
 Install, remove, and drop-in all take effect after the app restarts; the Manage tab shows a
 restart button when that is needed.
+
+## What survives an update — `_data/`
+
+Anything too large to ship in the package — an index, a model, a cache — is downloaded by the plugin
+itself into `plugins/<id>/_data/`. When a new version is installed, the app moves only that folder from
+the old copy into the new one. So a plugin never has to reach outside its own folder, and bumping a
+version does not re-download the heavy files.
+
+```
+plugins/my-plugin/
+  plugin.json          shipped in the package (replaced on update)
+  server.py            〃
+  _lib/                created by pip on install — reinstalled per version
+  _data/               created by the plugin — carried over between versions
+    model.onnx
+    index/…
+```
+
+- **The plugin creates it.** The app neither creates it nor looks inside; the layout is yours.
+- **Do not ship it in the package.** Folders starting with `_` are not read as plugins, and belong in
+  `.gitignore` in your repository — a tag archive must not grow with them.
+- **Downloading is the plugin's job.** The app does not fetch data for you: show progress, verify
+  (size, hash), and offer cancel and delete in your own screen. GitHub **release assets** are a good
+  host for big files (under 2 GiB each, up to 1000 per release, no total size or bandwidth limit) and
+  support resuming with `Range`.
+- **Removing the plugin sends `_data/` to the recycle bin with it.** If you want a "delete the data
+  only" button, put it in your own screen.
+- If the move fails (a file is in use), the data stays in the old folder `_old-<id>-<time>/_data/`.
+- A working example: `index.py` in [Tag Roll](https://github.com/mrm987/peropix-plugin-tag-roll) — it
+  downloads 13 files (960 MB) from a release, checks each sha256, and puts "Manage index" in its footer.
 
 ## License
 
