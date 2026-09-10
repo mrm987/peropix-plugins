@@ -106,6 +106,10 @@ my-plugin/
   <link rel="stylesheet" href="/plug/_app/base.css">
   <script src="/plug/_app/peropix.js"></script>
   ```
+  ウィンドウの骨格は `<header>`(ツールバー)・`<main>`(本文)・`<footer>`(ステータス) で組みます。すると小さなアプリのように
+  振る舞います — ウィンドウを広げると本文だけが広がり、ツールバーとステータスの厚みは変わりません。本文の中で余白を
+  埋めつつ比率を保つもの(描画面・プレビュー)は `<div class="stage">` に入れてください。
+  リサイズさせたくなければ `plugin.json` に `canvas: { resize: false }` を書きます。
   `base.css` はクラスなしでも `<button>`・`<input>`・`<table>` をアプリの見た目にし、アプリのテーマに追従します。
   `peropix.js` は `peropix.action(...)`・`state()`・`toast()`・`theme()`・`onTheme()`・`openCanvas()` を提供します。
   アプリ外(ただのブラウザ)で開くと `peropix.inApp` が false になり、アプリ呼び出しは静かに失敗します。

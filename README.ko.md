@@ -104,6 +104,10 @@ my-plugin/
   <link rel="stylesheet" href="/plug/_app/base.css">
   <script src="/plug/_app/peropix.js"></script>
   ```
+  창 골격은 `<header>`(도구줄) · `<main>`(본문) · `<footer>`(상태줄) 로 짜면 됩니다. 그러면 페이지가 **작은 앱**처럼
+  동작합니다 — 창을 키우면 본문만 커지고 도구줄·상태줄은 두께가 그대로입니다. 본문 안에서 남는 자리를 채우되 비율을
+  지켜야 하는 것(그림판·미리보기)은 `<div class="stage">` 에 넣으세요.
+  창 크기를 못 바꾸게 하려면 `plugin.json` 에 `canvas: { resize: false }` 를 적습니다 — 언제나 `width`×`height` 로 뜹니다.
   `base.css` 는 클래스를 안 붙여도 `<button>`·`<input>`·`<table>` 을 앱 모양으로 그리고, 앱 테마를 따라갑니다.
   `peropix.js` 는 `peropix.action(...)`·`state()`·`toast()`·`theme()`·`onTheme()`·`openCanvas()` 를 줍니다 (아래 postMessage 를 감싼 것).
   앱 밖(그냥 브라우저)에서 열면 `peropix.inApp` 이 false 이고 앱 호출은 조용히 실패하므로, 크롬에서 만들다가 멈추지 않습니다.
