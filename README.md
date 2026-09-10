@@ -60,9 +60,12 @@ idea: code in your repo, an entry in the list.
    not review your code. When the check is green the entry is merged and appears in the app
    the next time a user opens the Manage tab.
 
-   **Ids and names are unique.** An id or name that belongs to a plugin bundled with the app,
-   or that is already in the list, is rejected. Once registered, an id is bound to its
-   repository: only the original author can move it to another repository.
+   **`official` is not yours to set.** It is the flag the app uses to draw the "official" badge, so only the
+   PeroPix team adds it. CI rejects a pull request that contains it.
+
+   **Ids and names are unique.** An id or name that is already in the list is rejected. Once
+   registered, an id is bound to its repository: only the original author can move it to
+   another repository.
 
 **Releasing a new version** is the same: push a new tag, then open a pull request that
 changes `tag` (and `version`, if you set it).
@@ -141,7 +144,8 @@ my-plugin/
   `openCanvas(id)`, `theme(name)` and `toast(text)`.
 - **Buttons without code**: `contributes.buttons` adds a button to a slot; `do` is either
   `"openCanvas"` or `{ "action": "<action>", "args": {...} }`.
-- A working example: [`plugins-official/camera`](https://github.com/mrm987/PeroPix3/tree/master/plugins-official/camera)
+- A working example: [Camera Angle](https://github.com/mrm987/peropix-plugin-camera). Official plugins live in their author's repository and ship through
+  this list like every other plugin — nothing is bundled with the app.
   in the app repository — a canvas-only plugin.
 
 Install, remove, and drop-in all take effect after the app restarts; the Manage tab shows a

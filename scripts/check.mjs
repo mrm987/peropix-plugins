@@ -2,20 +2,20 @@
 //
 // 보는 것:
 //   (1) JSON 이 {items: [...]} 인가  (2) 항목마다 id·repo·tag·name 모양  (3) id·이름이 목록 안에서 하나뿐인가
-//   (4) id·이름이 앱의 공식 플러그인(앱 저장소 plugins-official/)과 겹치지 않는가 — 공식 id 는 예약이다
+//   (4) 「공식」 표식(official: true)을 PR 로 새로 붙이려 하지 않는가 — 그 표식은 목록 주인만 붙인다
 //   (5) 이미 등록된 id 의 repo 가 바뀌지 않았는가 — id 는 처음 등록한 저장소에 묶인다 (남이 같은 id 로 가로채지 못하게)
 //   (6) 그 태그의 저장소 루트에 plugin.json 이 있고 그 id 가 항목의 id 와 같은가
 // 안 보는 것: 플러그인 코드. 목록은 주소만 맡는다.
-// 규칙 (1)(2)(4) 는 앱의 backend/plugins.py (ID_RE·REPO_RE·TAG_RE·remote_items·_catalog) 와 같아야 한다 —
+// 규칙 (1)(2) 는 앱의 backend/plugins.py (ID_RE·REPO_RE·TAG_RE·remote_items) 와 같아야 한다 —
 // 여기서 통과한 항목을 앱이 버리면 안 된다. (5) 는 앱의 「출처가 같을 때만 업데이트」 와 짝이다.
 import { readFileSync } from "node:fs";
 
 const ID_RE = /^[a-z0-9][a-z0-9_-]*$/;
 const REPO_RE = /^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/;
 const TAG_RE = /^[A-Za-z0-9_.-]+$/;
-const APP_REPO = "mrm987/PeroPix3";
-const APP_BRANCH = "master";
 const BASE_INDEX = "https://raw.githubusercontent.com/mrm987/peropix-plugins/main/index.json";
+//: PR 로 온 것인가 — GitHub Actions 가 넣어 준다. PR 에서는 「공식」 표식을 새로 붙일 수 없다 (검사 4)
+const IS_PR = process.env.GITHUB_EVENT_NAME === "pull_request";
 
 const errors = [];
 const warns = [];
@@ -68,40 +68,32 @@ items.forEach((it, i) => {
   }
 });
 
-// (4) 공식 플러그인과의 충돌 — 앱 저장소의 plugins-official/ 폴더 이름과 각 plugin.json 의 name
-try {
-  const dirs = (await getJson(`https://api.github.com/repos/${APP_REPO}/contents/plugins-official?ref=${APP_BRANCH}`))
-    .filter((e) => e.type === "dir" && ID_RE.test(e.name));
-  const official = new Map();
-  for (const d of dirs) {
-    let name = "";
-    try {
-      name = String((await getJson(`https://raw.githubusercontent.com/${APP_REPO}/${APP_BRANCH}/plugins-official/${d.name}/plugin.json`)).name ?? "");
-    } catch { /* 이름을 못 읽어도 id 예약은 본다 */ }
-    official.set(d.name, name);
-  }
-  const officialNames = new Set([...official.values()].map(norm).filter(Boolean));
-  items.forEach((it, i) => {
-    if (!it || typeof it !== "object") return;
-    const id = String(it.id ?? "");
-    if (official.has(id)) fail(`items[${i}]: id 「${id}」 는 공식 플러그인의 id 라 쓸 수 없습니다`);
-    const n = norm(it.name);
-    if (n && officialNames.has(n)) fail(`items[${i}] (${id}): 이름 「${it.name}」 은 공식 플러그인의 이름이라 쓸 수 없습니다`);
-  });
-} catch (e) {
-  warns.push(`공식 플러그인 목록을 못 받아 (4) 를 건너뜁니다: ${e.message}`);
-}
-
-// (5) 이미 등록된 id 의 repo 가 바뀌지 않았는가 (main 의 index.json 과 대조)
+// main 의 index.json — (4) 와 (5) 가 함께 본다
+let before = null;
 try {
   const base = await getJson(BASE_INDEX);
-  const before = new Map((Array.isArray(base?.items) ? base.items : []).filter((x) => x?.id && x?.repo).map((x) => [String(x.id), String(x.repo)]));
-  for (const c of checks) {
-    const prev = before.get(c.id);
-    if (prev && prev !== c.repo) fail(`${c.where} (${c.id}): 이 id 는 「${prev}」 가 등록한 것입니다. 저장소를 바꾸려면 원래 제작자가 PR 을 내야 합니다`);
-  }
+  before = new Map((Array.isArray(base?.items) ? base.items : []).filter((x) => x?.id).map((x) => [String(x.id), x]));
 } catch (e) {
-  warns.push(`main 의 index.json 을 못 받아 (5) 를 건너뜁니다: ${e.message}`);
+  warns.push(`main 의 index.json 을 못 받아 (4)(5) 를 건너뜁니다: ${e.message}`);
+}
+
+// (4) 「공식」 표식 — 목록 주인만 붙인다
+//   ★앱은 이 표식 하나로 「공식」 딱지를 그린다 (2026-09-10 부터 앱에 담기는 플러그인이 없다). 그래서 남이 보내는
+//     PR 에는 그 칸이 못 들어가야 한다. main 에 직접 올릴 수 있는 것은 목록 주인뿐이므로 PR 일 때만 막으면 된다.
+items.forEach((it, i) => {
+  if (!it || typeof it !== "object") return;
+  const id = String(it.id ?? "");
+  if ("official" in it && typeof it.official !== "boolean") fail(`items[${i}] (${id}): official 은 true/false 여야 합니다`);
+  if (!IS_PR || it.official !== true || !before) return;
+  if (before.get(id)?.official !== true) {
+    fail(`items[${i}] (${id}): 「official: true」 는 PeroPix 팀만 붙일 수 있습니다. 그 줄을 빼고 다시 보내 주십시오`);
+  }
+});
+
+// (5) 이미 등록된 id 의 repo 가 바뀌지 않았는가 (main 의 index.json 과 대조)
+for (const c of checks) {
+  const prev = before?.get(c.id)?.repo;
+  if (prev && prev !== c.repo) fail(`${c.where} (${c.id}): 이 id 는 「${prev}」 가 등록한 것입니다. 저장소를 바꾸려면 원래 제작자가 PR 을 내야 합니다`);
 }
 
 // (6) 태그의 plugin.json
