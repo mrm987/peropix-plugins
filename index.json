@@ -7,6 +7,14 @@
       "name": "카메라 구도",
       "description": "인물을 돌려 보며 방위·높이·거리를 고르면 구도 태그와 가중치를 만든다. 「지금 씬에 넣기」가 스타일 카드의 「카메라」 블록을 갈아 끼운다.",
       "official": true
+    },
+    {
+      "id": "tag-roll",
+      "repo": "mrm987/peropix-plugin-tag-roll",
+      "tag": "v1.0.0",
+      "name": "태그 굴리기",
+      "description": "태그 하나에서 출발해 부위별로 캐릭터 디자인·표정·포즈·씬을 danbooru 통계에서 뽑는다. 「지금 씬에 넣기」가 캐릭터 카드와 스타일 카드를 채운다. 처음 열 때 색인 약 960MB 를 내려받는다.",
+      "official": true
     }
   ]
 }
