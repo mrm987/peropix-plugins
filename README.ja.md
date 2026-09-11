@@ -118,7 +118,8 @@ my-plugin/
   **フォントと文字サイズもアプリと同じです** — アプリが同梱するフォントを同じ場所から配信し、設定で選ばれたフォントと文字サイズを
   `peropix.js` が適用します (設定で変えると再読み込みなしで追従します)。サイズは `--text-*` トークンに掛かるので、
   そのトークンを使えばプラグイン側ですることはありません。
-  `peropix.js` は `peropix.action(...)`・`state()`・`toast()`・`theme()`・`onTheme()`・`openCanvas()` を提供します。
+  `peropix.js` は `peropix.action(...)`・`state()`・`scene()`・`toast()`・`theme()`・`onTheme()`・`locale()`・`onLocale()`・
+  `openCanvas()` を提供します。
   アプリ外(ただのブラウザ)で開くと `peropix.inApp` が false になり、アプリ呼び出しは静かに失敗します。
 - **キャンバス** (`web/`): アプリのバックエンドが配信するので、ページからバックエンド API を直接呼べます。
   アプリに何かをさせるには親ウィンドウへメッセージを送ります:
@@ -135,8 +136,16 @@ my-plugin/
   コンテンツは意図した色で塗り、その外だけ透明にしておくのが最も単純です (カメラプラグインがそうしています)。
 - **拡張** (`ext/*.js`): `window.peropix.registerExtension({ name, setup(api) })` から始めます。`api` には
   `addButton("generate.footer" | "nav.right", { label, icon, onClick })`,
-  `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`, `openCanvas(id)`,
+  `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`, `scene()`, `locale()`, `openCanvas(id)`,
   `theme(name)`, `toast(text)` があります。
+- **今のシーン**: `scene()` は現在のシーンの**生きている**ブロックを返します — `{ base, chars }`、ブロックごとに `id` があります。
+  ブロックを書いてすぐ読み直すプラグインは `action("get_workspace")` ではなくこちらを使ってください。`get_workspace` は
+  **保存されたファイル**を読むので、たった今の変更を知りません。
+- **多言語対応は任意です**: `locale()` はアプリの言語（`"ko"`・`"en"`・`"ja"`）を返し、ユーザーが変更すると `onLocale(fn)` が呼ばれます
+  （キャンバスには `{ type: "peropix", event: "locale", locale }` も届きます）。アプリは辞書の形式を強制しません — 好きな方法で
+  翻訳しても、一言語のままでも構いません。（公式プラグインは三言語を揃えています。簡単なやり方の一つは、自分で書いた文言を
+  そのままキーにして他言語だけ表に持ち、`onLocale` で描き直すことです。）`plugin.json` の名前と説明は文字列が一つずつなので、
+  アプリがプラグインの周りに表示する文字は、そこに書いた言語のまま出ます。
 - **コードなしのボタン**: `contributes.buttons` がスロットにボタンを追加します。`do` は `"openCanvas"` か
   `{ "action": "<アクション>", "args": {...} }` です。
 - 動く例: [カメラ構図](https://github.com/mrm987/peropix-plugin-camera) (キャンバスのみ) と

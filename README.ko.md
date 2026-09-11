@@ -116,7 +116,8 @@ my-plugin/
   **글꼴과 글자 크기도 앱과 같습니다** — 앱이 번들한 글꼴을 같은 자리에서 주고, 사용자가 설정에서 고른 글꼴과 글자 크기를
   `peropix.js` 가 꽂습니다 (설정에서 바꾸면 새로고침 없이 따라옵니다). 글자 크기는 `--text-*` 토큰에 곱해지므로,
   그 토큰을 쓰면 플러그인이 할 일은 없습니다.
-  `peropix.js` 는 `peropix.action(...)`·`state()`·`toast()`·`theme()`·`onTheme()`·`openCanvas()` 를 줍니다 (아래 postMessage 를 감싼 것).
+  `peropix.js` 는 `peropix.action(...)`·`state()`·`scene()`·`toast()`·`theme()`·`onTheme()`·`locale()`·`onLocale()`·
+  `openCanvas()` 를 줍니다 (아래 postMessage 를 감싼 것).
   앱 밖(그냥 브라우저)에서 열면 `peropix.inApp` 이 false 이고 앱 호출은 조용히 실패하므로, 크롬에서 만들다가 멈추지 않습니다.
 - **캔버스** (`web/`): 앱 백엔드가 서빙하므로 페이지가 백엔드 API 를 직접 부를 수 있습니다. 앱에 시킬 것은
   부모 창에 메시지로 보냅니다:
@@ -133,8 +134,16 @@ my-plugin/
   색으로 칠하고 그 밖만 투명하게 두는 것이 가장 단순합니다 (카메라 플러그인이 그렇습니다).
 - **확장** (`ext/*.js`): `window.peropix.registerExtension({ name, setup(api) })` 로 시작합니다. `api` 에는
   `addButton("generate.footer" | "nav.right", { label, icon, onClick })`,
-  `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`, `openCanvas(id)`,
+  `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`, `scene()`, `locale()`, `openCanvas(id)`,
   `theme(name)`, `toast(text)` 가 있습니다.
+- **지금 보고 있는 씬**: `scene()` 은 지금 씬의 **살아 있는** 블록을 돌려줍니다 — `{ base, chars }`, 블록마다 `id` 가 있습니다.
+  블록을 넣고 곧바로 되읽는 플러그인은 `action("get_workspace")` 말고 이것을 쓰십시오. `get_workspace` 는 **저장된 파일**을 읽어
+  방금 손댄 것을 모릅니다.
+- **언어 대응은 원하시면 하십시오**: `locale()` 은 앱 언어(`"ko"`·`"en"`·`"ja"`)를 돌려주고, 사용자가 바꾸면 `onLocale(fn)` 이 불립니다
+  (캔버스에는 `{ type: "peropix", event: "locale", locale }` 알림도 갑니다). 앱은 사전 형식을 강제하지 않습니다 — 원하는 방식으로
+  옮기시거나 한 언어로만 두셔도 됩니다. (공식 플러그인은 셋을 다 갖춥니다. 간단한 방법 하나: 직접 쓰신 문구를 그대로 키로 삼고
+  다른 언어만 표로 두었다가 `onLocale` 에서 다시 그리는 것입니다.) `plugin.json` 의 이름과 설명은 문자열 하나씩이라,
+  앱이 플러그인 둘레에 보여 주는 글자는 거기 적으신 언어 그대로 나옵니다.
 - **코드 없는 단추**: `contributes.buttons` 가 자리에 단추를 더합니다. `do` 는 `"openCanvas"` 또는
   `{ "action": "<액션>", "args": {...} }` 입니다.
 - 살아 있는 예: [카메라 구도](https://github.com/mrm987/peropix-plugin-camera) (캔버스만 있는 플러그인) ·

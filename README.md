@@ -125,13 +125,14 @@ my-plugin/
   **Font and text size match too** — the app serves its bundled fonts from the same place and `peropix.js` applies the font and
   text size the user picked in settings (changing either updates your page without a reload). The size multiplies the `--text-*`
   tokens, so if you use them there is nothing for you to do.
-  `peropix.js` gives you `peropix.action(...)`, `state()`, `toast()`, `theme()`, `onTheme()` and `openCanvas()`.
+  `peropix.js` gives you `peropix.action(...)`, `state()`, `scene()`, `toast()`, `theme()`, `onTheme()`, `locale()`,
+  `onLocale()` and `openCanvas()`.
   Opened outside the app (plain browser) `peropix.inApp` is false and app calls fail quietly, so you can build in Chrome.
 - **Canvas** (`web/`): served from the app backend, so the page can call the backend API
   directly. To make the app do something, post a message to the parent window:
   `parent.postMessage({ type: "peropix", id: 1, call: "action", name: "<action>", args: {...} }, "*")`
   and read the reply `{ type: "peropix", id: 1, ok, result | error }`. `call` is one of
-  `action`, `state`, `openCanvas`, `toast`, `theme`, `t`, `plugin`. The page owns its background: leave it unpainted and the app's
+  `action`, `state`, `scene`, `openCanvas`, `toast`, `theme`, `t`, `locale`, `plugin`. The page owns its background: leave it unpainted and the app's
   canvas background shows through, following the theme; or paint it yourself, either from `theme("--panel")` to follow the
   theme or with one fixed color (set your own text color either way).
   `canvas: { width, height, minWidth, minHeight, fit }` in `plugin.json` sets the frame's initial and minimum size and how it
@@ -145,7 +146,15 @@ my-plugin/
   `window.peropix.registerExtension({ name, setup(api) })`. The `api` offers
   `addButton("generate.footer" | "nav.right", { label, icon, onClick })`,
   `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`,
-  `openCanvas(id)`, `theme(name)` and `toast(text)`.
+  `scene()`, `locale()`, `openCanvas(id)`, `theme(name)` and `toast(text)`.
+- **The scene you see**: `scene()` returns the live blocks of the current scene — `{ base, chars }`, each block with an `id`.
+  Use it, not `action("get_workspace")`, when you write blocks and read them back: `get_workspace` reads the **saved file**,
+  so it does not know what you just changed.
+- **Languages are up to you**: `locale()` returns the app language (`"ko"`, `"en"`, `"ja"`) and `onLocale(fn)` fires when the
+  user changes it; a canvas also receives `{ type: "peropix", event: "locale", locale }`. The app imposes no dictionary format —
+  translate as you like, or ship one language. (The official plugins carry all three. A simple way: use your own wording as the
+  key, keep a table for the other languages, and redraw on `onLocale`.) The name and description in `plugin.json` are one string
+  each, so what the app shows around your plugin stays in the language you wrote there.
 - **Buttons without code**: `contributes.buttons` adds a button to a slot; `do` is either
   `"openCanvas"` or `{ "action": "<action>", "args": {...} }`.
 - Working examples: [Camera Angle](https://github.com/mrm987/peropix-plugin-camera) (canvas only) and
