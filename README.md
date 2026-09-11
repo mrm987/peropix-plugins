@@ -153,8 +153,9 @@ my-plugin/
 - **Languages are up to you**: `locale()` returns the app language (`"ko"`, `"en"`, `"ja"`) and `onLocale(fn)` fires when the
   user changes it; a canvas also receives `{ type: "peropix", event: "locale", locale }`. The app imposes no dictionary format —
   translate as you like, or ship one language. (The official plugins carry all three. A simple way: use your own wording as the
-  key, keep a table for the other languages, and redraw on `onLocale`.) The name and description in `plugin.json` are one string
-  each, so what the app shows around your plugin stays in the language you wrote there.
+  key, keep a table for the other languages, and redraw on `onLocale`.) In `plugin.json` the `name`, `description` and a button's `label` may each be
+  either one string or a per-language object (`{ "ko": "…", "en": "…", "ja": "…" }`); the app picks the one for its language and
+  falls back to English, then Korean. That is what the plugin list, the canvas title and the button show.
 - **Buttons without code**: `contributes.buttons` adds a button to a slot; `do` is either
   `"openCanvas"` or `{ "action": "<action>", "args": {...} }`.
 - Working examples: [Camera Angle](https://github.com/mrm987/peropix-plugin-camera) (canvas only) and
