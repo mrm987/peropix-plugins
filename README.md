@@ -122,6 +122,8 @@ my-plugin/
   the leftover room while keeping its aspect ratio (a drawing surface, a preview) in `<div class="stage">`.
   To make the window non-resizable, set `canvas: { resize: false }` in `plugin.json`; it always opens at `width`x`height`.
   `base.css` styles bare `<button>`, `<input>` and `<table>` to match the app and follows the app theme.
+  **The font matches too** — the app serves its bundled fonts from the same place and `peropix.js` applies whichever one the
+  user picked in settings (changing it there updates your page without a reload). Nothing for you to do.
   `peropix.js` gives you `peropix.action(...)`, `state()`, `toast()`, `theme()`, `onTheme()` and `openCanvas()`.
   Opened outside the app (plain browser) `peropix.inApp` is false and app calls fail quietly, so you can build in Chrome.
 - **Canvas** (`web/`): served from the app backend, so the page can call the backend API
