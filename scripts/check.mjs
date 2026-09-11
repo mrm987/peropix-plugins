@@ -1,7 +1,7 @@
 // index.json 검사 — PR 마다 CI 가 돌린다 (.github/workflows/check.yml). 로컬에서는 `node scripts/check.mjs`.
 //
 // 보는 것:
-//   (1) JSON 이 {items: [...]} 인가  (2) 항목마다 id·repo·tag·name 모양  (3) id·이름이 목록 안에서 하나뿐인가
+//   (1) JSON 이 {items: [...]} 인가  (2) 항목마다 id·repo·tag·name 모양 (name 은 문자열 또는 언어별 묶음)  (3) id·이름이 목록 안에서 하나뿐인가
 //   (4) 「공식」 표식(official: true)을 PR 로 새로 붙이려 하지 않는가 — 그 표식은 목록 주인만 붙인다
 //   (5) 이미 등록된 id 의 repo 가 바뀌지 않았는가 — id 는 처음 등록한 저장소에 묶인다 (남이 같은 id 로 가로채지 못하게)
 //   (6) 그 태그의 저장소 루트에 plugin.json 이 있고 그 id 가 항목의 id 와 같은가
@@ -52,7 +52,10 @@ items.forEach((it, i) => {
   if (!ID_RE.test(id)) return fail(`${where}: id 「${id}」 — 소문자·숫자·-·_ 만, 첫 글자는 소문자나 숫자`);
   if (seenId.has(id)) fail(`${where}: id 「${id}」 가 items[${seenId.get(id)}] 에 이미 있습니다`);
   seenId.set(id, i);
-  const name = typeof it.name === "string" ? it.name.trim() : "";
+  // ★이름·설명은 문자열 하나여도 되고 **언어별 묶음**(`{ko,en,ja}`)이어도 된다 — 앱이 지금 언어로 고른다.
+  //   여기서는 견주기 위해 한 가지로 고른다 (영어 → 한국어 → 적힌 것 중 아무거나).
+  const pick = (v) => (typeof v === "string" ? v : v && typeof v === "object" ? (v.en || v.ko || Object.values(v)[0] || "") : "");
+  const name = pick(it.name).trim();
   if (!name) fail(`${where} (${id}): name 이 비었습니다`);
   else if (seenName.has(norm(name))) fail(`${where} (${id}): 이름 「${name}」 이 items[${seenName.get(norm(name))}] 과 같습니다`);
   else seenName.set(norm(name), i);

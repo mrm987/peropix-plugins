@@ -3,17 +3,33 @@
     {
       "id": "camera",
       "repo": "mrm987/peropix-plugin-camera",
-      "tag": "v1.1.0",
-      "name": "카메라 구도",
-      "description": "인물을 돌려 보며 방위·높이·거리를 고르면 구도 태그와 가중치를 만든다. 「지금 씬에 넣기」가 스타일 카드의 「카메라」 블록을 갈아 끼운다.",
+      "tag": "v1.2.0",
+      "name": {
+        "ko": "카메라 구도",
+        "en": "Camera Framing",
+        "ja": "カメラ構図"
+      },
+      "description": {
+        "ko": "인물을 돌려 보며 방위·높이·거리를 고르면 구도 태그와 가중치를 만든다. 「지금 씬에 넣기」가 스타일 카드의 「카메라_구도」 블록을 갈아 끼운다.",
+        "en": "Turn the figure around and pick an azimuth, height and distance; the plugin writes the framing tags with their weights. “Insert into the scene” replaces the style card's “Camera_Framing” block.",
+        "ja": "人物を回しながら方位・高さ・距離を選ぶと、構図タグと重みを作ります。「現在のシーンに入れる」はスタイルカードの「カメラ_構図」ブロックを差し替えます。"
+      },
       "official": true
     },
     {
       "id": "tag-roll",
       "repo": "mrm987/peropix-plugin-tag-roll",
-      "tag": "v1.0.1",
-      "name": "태그 굴리기",
-      "description": "태그 하나에서 출발해 부위별로 캐릭터 디자인·표정·포즈·씬을 danbooru 통계에서 뽑는다. 「지금 씬에 넣기」가 캐릭터 카드와 스타일 카드를 채운다. 처음 열 때 색인 약 960MB 를 내려받는다.",
+      "tag": "v1.2.0",
+      "name": {
+        "ko": "태그 굴리기",
+        "en": "Tag Roll",
+        "ja": "タグロール"
+      },
+      "description": {
+        "ko": "태그 하나에서 출발해 부위별로 캐릭터 디자인·표정·포즈·씬을 danbooru 통계에서 뽑는다. 「지금 씬에 넣기」가 캐릭터 카드와 스타일 카드를 채운다. 처음 열 때 색인 약 960MB 를 내려받는다.",
+        "en": "Starts from one tag and draws design, expression, pose and scene slot by slot from danbooru statistics. “Insert into the scene” fills the character and style cards. Downloads an index of about 960MB the first time you open it.",
+        "ja": "タグ一つから出発して、デザイン・表情・ポーズ・シーンを部位ごとに danbooru の統計から引きます。「現在のシーンに入れる」がキャラクターカードとスタイルカードを埋めます。初回起動時にインデックス（約960MB）を取得します。"
+      },
       "official": true
     }
   ]

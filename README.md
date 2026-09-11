@@ -51,7 +51,7 @@ idea: code in your repo, an entry in the list.
    | `id` | yes | Must equal the `id` in your `plugin.json` and be unique in the list. Lowercase letters, digits, `-`, `_`. |
    | `repo` | yes | `owner/repository` on GitHub. |
    | `tag` | yes | The git tag to install. |
-   | `name` | yes | Shown in the app. |
+   | `name` | yes | Shown in the app. Either one string or a per-language object (`{"ko": "…", "en": "…", "ja": "…"}`). |
    | `description` | no | One line, shown under the name. |
    | `version` | no | Defaults to the tag without a leading `v`. The app offers an update when this is higher than the installed version. |
    | `sha256` | no | If present, the app compares it against the downloaded zip. |
