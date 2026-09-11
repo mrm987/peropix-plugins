@@ -1,5 +1,7 @@
 # index.json 을 고치는 PR 을 검사한다 — 항목 모양과, 그 태그에 plugin.json 이 있고 id 가 맞는지.
-# 코드는 보지 않는다 (README 첫머리의 세 원칙). 검사 내용은 scripts/check.mjs 하나다.
+# 그리고 코드에서 **사람이 볼 자리**를 목록으로 남긴다 (`scan.mjs`).
+# ★스캔은 합격·불합격이 아니다 — 걸려도 통과시키고, 걸리지 않아도 안전하다는 뜻이 아니다.
+#   병합 전에 사람이 코드를 읽는 것이 실제 검토다. 검사 내용은 scripts/ 의 두 파일이 전부다.
 name: Check index
 
 on:
@@ -21,3 +23,5 @@ jobs:
         with:
           node-version: 20
       - run: node scripts/check.mjs
+      - name: 코드에서 볼 자리
+        run: node scripts/scan.mjs | tee -a "$GITHUB_STEP_SUMMARY"

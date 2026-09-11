@@ -56,9 +56,11 @@ idea: code in your repo, an entry in the list.
    | `version` | no | Defaults to the tag without a leading `v`. The app offers an update when this is higher than the installed version. |
    | `sha256` | no | If present, the app compares it against the downloaded zip. |
 
-   CI fetches `plugin.json` from that tag and checks that its `id` matches the entry. It does
-   not review your code. When the check is green the entry is merged and appears in the app
-   the next time a user opens the Manage tab.
+   CI fetches `plugin.json` from that tag, checks that its `id` matches the entry, and lists
+   code patterns that look risky. A person also reads the code before merging. **Passing the
+   check does not mean the plugin is safe** — a plugin runs with the same permissions as the
+   app, and installing it is the user's call. Once merged, the entry appears in the app the
+   next time a user opens the Manage tab.
 
    **`official` is not yours to set.** It is the flag the app uses to draw the "official" badge, so only the
    PeroPix team adds it. CI rejects a pull request that contains it.
@@ -193,7 +195,7 @@ plugins/my-plugin/
   only" button, put it in your own screen.
 - If the move fails (a file is in use), the data stays in the old folder `_old-<id>-<time>/_data/`.
 - A working example: `index.py` in [Tag Roll](https://github.com/mrm987/peropix-plugin-tag-roll) — it
-  downloads 13 files (960 MB) from a release, checks each sha256, and puts "Manage index" in its footer.
+  downloads 13 files (960 MB) from a release and checks each sha256, showing a gate screen until they are there.
 
 ## License
 
