@@ -14,7 +14,54 @@
         "en": "Turn the figure around and pick an azimuth, height and distance; the plugin writes the framing tags with their weights. “Insert into the scene” replaces the style card's “Camera_Framing” block.",
         "ja": "人物を回しながら方位・高さ・距離を選ぶと、構図タグと重みを作ります。「現在のシーンに入れる」はスタイルカードの「カメラ_構図」ブロックを差し替えます。"
       },
-      "official": true
+      "official": true,
+      "changes": [
+        {
+          "tag": "v1.4.2",
+          "date": "2026-09-13",
+          "note": {
+            "ko": "생성 화면의 버튼을 뺐습니다 — 플러그인 탭에서 엽니다",
+            "en": "Removed the button from the generate screen; open it from the Plugins tab",
+            "ja": "生成画面のボタンを外しました。プラグインタブから開きます"
+          }
+        },
+        {
+          "tag": "v1.4.1",
+          "date": "2026-09-13",
+          "note": {
+            "ko": "배포본에서 화면이 비어 보이던 문제 수정",
+            "en": "Fixed a blank screen in the packaged app",
+            "ja": "配布版で画面が空白になる問題を修正"
+          }
+        },
+        {
+          "tag": "v1.4.0",
+          "date": "2026-09-12",
+          "note": {
+            "ko": "화면을 다시 짰습니다 — 구도를 고르면 아래에 태그, 그 아래 넣기 버튼",
+            "en": "Reworked the layout: pick a framing, see the tags, then insert",
+            "ja": "画面を組み直しました。構図を選ぶとタグが出て、その下に挿入ボタン"
+          }
+        },
+        {
+          "tag": "v1.2.0",
+          "date": "2026-09-11",
+          "note": {
+            "ko": "세 언어 지원 · 블록 이름을 「카메라_구도」로",
+            "en": "Three languages; the block is named Camera_Framing",
+            "ja": "3言語対応。ブロック名を「カメラ_構図」に"
+          }
+        },
+        {
+          "tag": "v1.1.0",
+          "date": "2026-09-10",
+          "note": {
+            "ko": "첫 공개 판",
+            "en": "First public version",
+            "ja": "最初の公開版"
+          }
+        }
+      ]
     },
     {
       "id": "tag-roll",
@@ -30,7 +77,63 @@
         "en": "Starts from one tag and draws design, expression, pose and scene slot by slot from danbooru statistics. “Insert into the scene” fills the character and style cards. Downloads an index of about 960MB the first time you open it.",
         "ja": "タグ一つから出発して、デザイン・表情・ポーズ・シーンを部位ごとに danbooru の統計から引きます。「現在のシーンに入れる」がキャラクターカードとスタイルカードを埋めます。初回起動時にインデックス（約960MB）を取得します。"
       },
-      "official": true
+      "official": true,
+      "changes": [
+        {
+          "tag": "v1.3.2",
+          "date": "2026-09-13",
+          "note": {
+            "ko": "생성 화면의 버튼을 뺐습니다 — 플러그인 탭에서 엽니다",
+            "en": "Removed the button from the generate screen; open it from the Plugins tab",
+            "ja": "生成画面のボタンを外しました。プラグインタブから開きます"
+          }
+        },
+        {
+          "tag": "v1.3.1",
+          "date": "2026-09-13",
+          "note": {
+            "ko": "배포본에서 화면이 비어 보이던 문제 수정",
+            "en": "Fixed a blank screen in the packaged app",
+            "ja": "配布版で画面が空白になる問題を修正"
+          }
+        },
+        {
+          "tag": "v1.3.0",
+          "date": "2026-09-12",
+          "note": {
+            "ko": "화면을 두 칸으로 · 신체와 복장을 갈랐습니다 · 갈래마다 켜고 끄고 다시 굴리기",
+            "en": "Two-pane layout; body and outfit split; toggle and reroll each part",
+            "ja": "2ペイン構成。身体と服装を分離。パートごとにオン・オフと再ロール"
+          }
+        },
+        {
+          "tag": "v1.2.0",
+          "date": "2026-09-11",
+          "note": {
+            "ko": "세 언어 지원 · 블록 이름표에 접두어 · 모듈 접기",
+            "en": "Three languages; prefixed block labels; collapsible modules",
+            "ja": "3言語対応。ブロック名に接頭辞。モジュールの折りたたみ"
+          }
+        },
+        {
+          "tag": "v1.0.1",
+          "date": "2026-09-10",
+          "note": {
+            "ko": "색인을 플러그인 폴더 안에 둡니다",
+            "en": "The index now lives inside the plugin folder",
+            "ja": "インデックスをプラグインフォルダ内に置きます"
+          }
+        },
+        {
+          "tag": "v1.0.0",
+          "date": "2026-09-10",
+          "note": {
+            "ko": "첫 공개 판",
+            "en": "First public version",
+            "ja": "最初の公開版"
+          }
+        }
+      ]
     }
   ]
 }

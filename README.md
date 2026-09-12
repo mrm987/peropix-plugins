@@ -55,6 +55,7 @@ idea: code in your repo, an entry in the list.
    | `description` | no | One line, shown under the name. |
    | `version` | no | Defaults to the tag without a leading `v`. The app offers an update when this is higher than the installed version. |
    | `sha256` | no | If present, the app compares it against the downloaded zip. |
+   | `changes` | no | One line per version, newest first — see below. |
 
    CI fetches `plugin.json` from that tag, checks that its `id` matches the entry, and lists
    code patterns that look risky. A person also reads the code before merging. **Passing the
@@ -74,6 +75,25 @@ changes `tag` (and `version`, if you set it).
 
 **Taking a plugin down** is a pull request that removes the entry. Users who already
 installed it keep their copy.
+
+### What changed, in one line
+
+The app shows a version history when the user clicks the version in its plugin manager. It comes from
+this list, not from your repository — so nothing is fetched at that moment and the format stays the same
+for every plugin. When you open a pull request to bump `tag`, add one line at the top of `changes`:
+
+```json
+"changes": [
+  { "tag": "v1.2.0", "date": "2026-09-13", "note": "Reworked the layout" },
+  { "tag": "v1.1.0", "date": "2026-09-10", "note": { "en": "First public version", "ko": "첫 공개 판" } }
+]
+```
+
+- **One line, not release notes.** `note` is capped at 120 characters per language and CI rejects longer ones.
+- `note` is either one string or a per-language object, like `name` and `description`. Write one language and
+  the app shows that one to everybody.
+- `date` is optional and must be `YYYY-MM-DD`. Keep at most 30 entries; drop the oldest.
+- Leaving `changes` out is fine — the history just reads "no notes".
 
 ## Writing a plugin
 

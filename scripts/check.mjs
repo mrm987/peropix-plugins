@@ -80,6 +80,39 @@ try {
   warns.push(`main 의 index.json 을 못 받아 (4)(5) 를 건너뜁니다: ${e.message}`);
 }
 
+// (3-2) 버전별 한 줄(`changes`) — 판을 올리는 PR 이 함께 적는 자리다.
+//   ★★**한 줄이다.** 앱은 관리 화면의 판을 눌렀을 때 이것을 그대로 편다 — 릴리즈 노트를 옮겨 적는 자리가 아니라,
+//     「무엇이 바뀌었나」를 한 줄로 알려 주는 자리다. 그래서 길이를 막는다 (한 언어당 NOTE_MAX 자).
+//   ★`note` 는 문자열 하나이거나 언어별 묶음이다 (`name`·`description` 과 같다). 안 적은 언어는 앱이
+//     적힌 다른 언어로 보여 주므로, 하나만 적어도 된다.
+const NOTE_MAX = 120;
+const CHANGES_MAX = 30;
+items.forEach((it, i) => {
+  if (!it || typeof it !== "object" || !("changes" in it)) return;
+  const id = String(it.id ?? "");
+  const where = `items[${i}] (${id})`;
+  if (!Array.isArray(it.changes)) return fail(`${where}: changes 는 배열이어야 합니다`);
+  if (it.changes.length > CHANGES_MAX) fail(`${where}: changes 는 ${CHANGES_MAX} 줄까지입니다 (오래된 것부터 지우십시오)`);
+  it.changes.forEach((c, j) => {
+    const w2 = `${where} changes[${j}]`;
+    if (!c || typeof c !== "object") return fail(`${w2}: 객체가 아닙니다`);
+    if (!TAG_RE.test(String(c.tag ?? ""))) fail(`${w2}: tag 「${c.tag}」 — 글자·숫자·.·-·_ 만`);
+    if ("date" in c && !/^\d{4}-\d{2}-\d{2}$/.test(String(c.date))) fail(`${w2}: date 는 YYYY-MM-DD 꼴이어야 합니다`);
+    const note = c.note;
+    const tooLong = (v) => String(v).length > NOTE_MAX;
+    if (typeof note === "string") {
+      if (!note.trim()) fail(`${w2}: note 가 비었습니다`);
+      else if (tooLong(note)) fail(`${w2}: note 가 ${NOTE_MAX} 자를 넘습니다 (${note.length} 자)`);
+    } else if (note && typeof note === "object") {
+      const vals = Object.values(note);
+      if (!vals.length) fail(`${w2}: note 가 비었습니다`);
+      vals.forEach((v) => { if (tooLong(v)) fail(`${w2}: note 가 ${NOTE_MAX} 자를 넘습니다 (${String(v).length} 자)`); });
+    } else {
+      fail(`${w2}: note 가 있어야 합니다 (문자열 하나 또는 언어별 묶음)`);
+    }
+  });
+});
+
 // (4) 「공식」 표식 — 목록 주인만 붙인다
 //   ★앱은 이 표식 하나로 「공식」 딱지를 그린다 (2026-09-10 부터 앱에 담기는 플러그인이 없다). 그래서 남이 보내는
 //     PR 에는 그 칸이 못 들어가야 한다. main 에 직접 올릴 수 있는 것은 목록 주인뿐이므로 PR 일 때만 막으면 된다.
