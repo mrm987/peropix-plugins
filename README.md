@@ -151,6 +151,8 @@ my-plugin/
   `addButton("generate.primary" | "generate.footer" | "nav.right", { label, icon, onClick })`,
   `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`,
   `scene()`, `locale()`, `openCanvas(id)`, `theme(name)` and `toast(text)`.
+- **Taking a button back** — `addButton` and `addMenuItem` return a function that removes what they added.
+  Call it when your plugin's own setting turns the button off, and it disappears without restarting the app.
 - **Button slots** — `generate.primary` sits **next to the Generate button** and splits that row with it
   (same shape, half the width; the row is unchanged when no plugin uses it). `generate.footer` is the line
   under it, and `nav.right` is the end of the bottom mode bar.
