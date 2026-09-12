@@ -118,6 +118,9 @@ my-plugin/
   <link rel="stylesheet" href="../../_app/base.css">
   <script src="../../_app/peropix.js"></script>
   ```
+  Your page is served at `/plug/<id>/web/`, so that relative path points at the shared folder — count the `../`
+  again if your page sits deeper. An absolute path (`/plug/_app/…`) works on recent app versions too, but the
+  relative form is safe on every version.
   Lay the window out with `<header>` (toolbar), `<main>` (body) and `<footer>` (status) and the page behaves like a small
   app: growing the window grows only the body, while the toolbar and status keep their height. Put anything that should fill
   the leftover room while keeping its aspect ratio (a drawing surface, a preview) in `<div class="stage">`.
