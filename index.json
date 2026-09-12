@@ -66,7 +66,7 @@
     {
       "id": "tag-roll",
       "repo": "mrm987/peropix-plugin-tag-roll",
-      "tag": "v1.3.2",
+      "tag": "v1.4.0",
       "name": {
         "ko": "태그 굴리기",
         "en": "Tag Roll",
@@ -79,6 +79,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.4.0",
+          "date": "2026-09-13",
+          "note": {
+            "ko": "생성 버튼 아래에 「랜덤 생성」을 둘 수 있습니다. 누르면 지금 조건으로 굴려 넣고 바로 생성합니다",
+            "en": "Adds a Random generate button under Generate. It rolls with the current settings and starts generating",
+            "ja": "生成ボタンの下に「ランダム生成」を置けます。今の条件でロールして入れ、そのまま生成します"
+          }
+        },
         {
           "tag": "v1.3.2",
           "date": "2026-09-13",
