@@ -148,9 +148,12 @@ my-plugin/
   layout is to paint your content in the colors you intend and leave only the outside transparent (the camera plugin does this).
 - **Extension** (`ext/*.js`): starts with
   `window.peropix.registerExtension({ name, setup(api) })`. The `api` offers
-  `addButton("generate.footer" | "nav.right", { label, icon, onClick })`,
+  `addButton("generate.primary" | "generate.footer" | "nav.right", { label, icon, onClick })`,
   `addMenuItem("image.send", { label, onClick(img) })`, `action(name, args)`, `state()`,
   `scene()`, `locale()`, `openCanvas(id)`, `theme(name)` and `toast(text)`.
+- **Button slots** — `generate.primary` sits **next to the Generate button** and splits that row with it
+  (same shape, half the width; the row is unchanged when no plugin uses it). `generate.footer` is the line
+  under it, and `nav.right` is the end of the bottom mode bar.
 - **The scene you see**: `scene()` returns the live blocks of the current scene — `{ base, chars }`, each block with an `id`.
   Use it, not `action("get_workspace")`, when you write blocks and read them back: `get_workspace` reads the **saved file**,
   so it does not know what you just changed.
