@@ -115,8 +115,8 @@ my-plugin/
   Actions and their arguments are what `GET /api/agent/tools` returns.
 - **Shared assets** — the app serves two files from the same origin as your plugin. Two lines in your page's head:
   ```html
-  <link rel="stylesheet" href="/plug/_app/base.css">
-  <script src="/plug/_app/peropix.js"></script>
+  <link rel="stylesheet" href="../../_app/base.css">
+  <script src="../../_app/peropix.js"></script>
   ```
   Lay the window out with `<header>` (toolbar), `<main>` (body) and `<footer>` (status) and the page behaves like a small
   app: growing the window grows only the body, while the toolbar and status keep their height. Put anything that should fill

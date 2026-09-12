@@ -3,7 +3,7 @@
     {
       "id": "camera",
       "repo": "mrm987/peropix-plugin-camera",
-      "tag": "v1.4.0",
+      "tag": "v1.4.1",
       "name": {
         "ko": "카메라 구도",
         "en": "Camera Framing",
@@ -19,7 +19,7 @@
     {
       "id": "tag-roll",
       "repo": "mrm987/peropix-plugin-tag-roll",
-      "tag": "v1.3.0",
+      "tag": "v1.3.1",
       "name": {
         "ko": "태그 굴리기",
         "en": "Tag Roll",
