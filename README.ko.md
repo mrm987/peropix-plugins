@@ -94,10 +94,7 @@ my-plugin/
   "description": "무엇을 하는지 한 줄",
   "server": "server.py",
   "web": "web",
-  "ext": ["ext/main.js"],
-  "contributes": {
-    "buttons": [{ "slot": "generate.footer", "label": "열기", "do": "openCanvas" }]
-  }
+  "ext": ["ext/main.js"]
 }
 ```
 
@@ -147,7 +144,8 @@ my-plugin/
   다른 언어만 표로 두었다가 `onLocale` 에서 다시 그리는 것입니다.) `plugin.json` 의 `name`·`description`·단추의 `label` 은 문자열 하나여도 되고
   언어별 묶음(`{ "ko": "…", "en": "…", "ja": "…" }`)이어도 됩니다. 앱이 지금 언어로 고르고, 그 언어가 없으면 영어 → 한국어 차례로
   떨어집니다. 플러그인 목록·캔버스 창 제목·단추에 그 글자가 나옵니다.
-- **코드 없는 단추**: `contributes.buttons` 가 자리에 단추를 더합니다. `do` 는 `"openCanvas"` 또는
+- **코드 없는 단추** (선택입니다. 대부분의 플러그인은 단추 없이 플러그인 화면에서만 엽니다):
+  `contributes.buttons` 가 자리에 단추를 더합니다. `do` 는 `"openCanvas"` 또는
   `{ "action": "<액션>", "args": {...} }` 입니다.
 - 살아 있는 예: [카메라 구도](https://github.com/mrm987/peropix-plugin-camera) (캔버스만 있는 플러그인) ·
   [태그 굴리기](https://github.com/mrm987/peropix-plugin-tag-roll) (파이썬 창구 + 색인 960MB 를 스스로 받는 플러그인).

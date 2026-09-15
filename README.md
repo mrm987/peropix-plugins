@@ -121,10 +121,7 @@ my-plugin/
   "description": "One line about what it does",
   "server": "server.py",
   "web": "web",
-  "ext": ["ext/main.js"],
-  "contributes": {
-    "buttons": [{ "slot": "generate.footer", "label": "Open", "do": "openCanvas" }]
-  }
+  "ext": ["ext/main.js"]
 }
 ```
 
@@ -185,7 +182,8 @@ my-plugin/
   key, keep a table for the other languages, and redraw on `onLocale`.) In `plugin.json` the `name`, `description` and a button's `label` may each be
   either one string or a per-language object (`{ "ko": "…", "en": "…", "ja": "…" }`); the app picks the one for its language and
   falls back to English, then Korean. That is what the plugin list, the canvas title and the button show.
-- **Buttons without code**: `contributes.buttons` adds a button to a slot; `do` is either
+- **Buttons without code** (optional; most plugins open from the plugin screen alone and declare no
+  button at all): `contributes.buttons` adds a button to a slot; `do` is either
   `"openCanvas"` or `{ "action": "<action>", "args": {...} }`.
 - Working examples: [Camera Angle](https://github.com/mrm987/peropix-plugin-camera) (canvas only) and
   [Tag Roll](https://github.com/mrm987/peropix-plugin-tag-roll) (a Python router plus a 960 MB index it downloads itself). Official plugins live in their author's repository and ship through

@@ -96,10 +96,7 @@ my-plugin/
   "description": "何をするかを一行で",
   "server": "server.py",
   "web": "web",
-  "ext": ["ext/main.js"],
-  "contributes": {
-    "buttons": [{ "slot": "generate.footer", "label": "開く", "do": "openCanvas" }]
-  }
+  "ext": ["ext/main.js"]
 }
 ```
 
@@ -149,7 +146,8 @@ my-plugin/
   そのままキーにして他言語だけ表に持ち、`onLocale` で描き直すことです。）`plugin.json` の `name`・`description`・ボタンの `label` は、文字列一つでも
   言語別のオブジェクト（`{ "ko": "…", "en": "…", "ja": "…" }`）でも構いません。アプリが現在の言語のものを選び、なければ英語 → 韓国語の
   順にフォールバックします。プラグイン一覧・キャンバスのタイトル・ボタンにその文字が出ます。
-- **コードなしのボタン**: `contributes.buttons` がスロットにボタンを追加します。`do` は `"openCanvas"` か
+- **コードなしのボタン**（任意です。多くのプラグインはボタンを置かず、プラグイン画面からのみ開きます）:
+  `contributes.buttons` がスロットにボタンを追加します。`do` は `"openCanvas"` か
   `{ "action": "<アクション>", "args": {...} }` です。
 - 動く例: [カメラ構図](https://github.com/mrm987/peropix-plugin-camera) (キャンバスのみ) と
   [タグロール](https://github.com/mrm987/peropix-plugin-tag-roll) (Python の窓口と、自分でダウンロードする 960MB の索引)。公式プラグインも作者のリポジトリに置かれ、この一覧から配布されます —
