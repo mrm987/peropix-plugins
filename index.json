@@ -147,7 +147,7 @@
     {
       "id": "manga-maker",
       "repo": "mrm987/peropix-plugin-manga-maker",
-      "tag": "v1.2.0",
+      "tag": "v1.3.0",
       "name": {
         "ko": "만화 제작기",
         "en": "Manga Maker",
@@ -160,6 +160,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.3.0",
+          "date": "2026-09-20",
+          "note": {
+            "ko": "앱과 같은 화면으로 바꿨습니다 — 세 언어, 앱 확인창, 앱 글자 크기",
+            "en": "Reworked the screen to match the app: three languages, the app's dialog, the app's text size",
+            "ja": "画面をアプリに合わせました。3言語・アプリの確認ダイアログ・アプリの文字サイズ"
+          }
+        },
         {
           "tag": "v1.2.0",
           "date": "2026-09-20",
