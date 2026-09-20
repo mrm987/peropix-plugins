@@ -165,7 +165,7 @@
     {
       "id": "manga-maker",
       "repo": "mrm987/peropix-plugin-manga-maker",
-      "tag": "v1.5.1",
+      "tag": "v1.6.0",
       "name": {
         "ko": "만화 제작기",
         "en": "Manga Maker",
@@ -178,6 +178,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.6.0",
+          "date": "2026-09-20",
+          "note": {
+            "ko": "콘티를 만들어도 적어 둔 내용이 남고, 이어서 그릴 때 무슨 일이 일어나는지 버튼 아래에 뚜니다",
+            "en": "What you wrote stays after making the board, and the buttons say what a continuation will do",
+            "ja": "ネームを作っても書いた内容が残り、続きを描くときの動作がボタンの下に出ます"
+          }
+        },
         {
           "tag": "v1.5.1",
           "date": "2026-09-20",
