@@ -165,7 +165,7 @@
     {
       "id": "manga-maker",
       "repo": "mrm987/peropix-plugin-manga-maker",
-      "tag": "v1.5.0",
+      "tag": "v1.5.1",
       "name": {
         "ko": "만화 제작기",
         "en": "Manga Maker",
@@ -178,6 +178,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.5.1",
+          "date": "2026-09-20",
+          "note": {
+            "ko": "설치본에서 생성이 시작되지 않던 문제 수정",
+            "en": "Fixed generation never starting in the installed app",
+            "ja": "インストール版で生成が始まらない問題を修正"
+          }
+        },
         {
           "tag": "v1.5.0",
           "date": "2026-09-20",
