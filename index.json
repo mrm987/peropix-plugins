@@ -147,19 +147,28 @@
     {
       "id": "manga-maker",
       "repo": "mrm987/peropix-plugin-manga-maker",
-      "tag": "v1.3.0",
+      "tag": "v1.4.0",
       "name": {
         "ko": "만화 제작기",
         "en": "Manga Maker",
         "ja": "マンガ制作"
       },
       "description": {
-        "ko": "짧은 줄거리를 LLM 이 페이지와 컷으로 나누고, NAI V5 위치 프롬프트로 만화를 생성한다. 컷 배치·대사·인물 자리를 콘티에서 고친 뒤 페이지째 생성한다.",
-        "en": "An LLM splits a short story into pages and panels, then generates the manga with NAI V5 positioned prompts. Edit the panels, dialogue and character positions on the board, then generate page by page.",
-        "ja": "短いあらすじを LLM がページとコマに分け、NAI V5 の位置指定プロンプトでマンガを生成します。コマ割り・セリフ・人物の位置をネームで直してからページごとに生成します。"
+        "ko": "짧은 줄거리를 LLM 이 페이지와 컷으로 나누고, 위치를 지정한 NAI V5 캐릭터 프롬프트로 만화를 생성한다. 컷 배치·대사·인물 자리를 콘티에서 고친 뒤 페이지째 생성한다.",
+        "en": "An LLM splits a short story into pages and panels, then generates the manga with positioned NAI V5 character prompts. Edit the panels, dialogue and character positions on the board, then generate page by page.",
+        "ja": "短いあらすじを LLM がページとコマに分け、NAI V5 のキャラクタープロンプトに位置を指定してマンガを生成します。コマ割り・セリフ・人物の位置をネームで直してからページごとに生成します。"
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.4.0",
+          "date": "2026-09-20",
+          "note": {
+            "ko": "콘티가 캐릭터 프롬프트를 번호와 인물별 색으로 보여 줍니다",
+            "en": "The board now shows each character prompt by number and per-character colour",
+            "ja": "ネームがキャラクタープロンプトを番号と人物別の色で表示します"
+          }
+        },
         {
           "tag": "v1.3.0",
           "date": "2026-09-20",
