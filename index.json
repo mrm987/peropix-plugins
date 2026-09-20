@@ -10,9 +10,9 @@
         "ja": "カメラ構図"
       },
       "description": {
-        "ko": "인물을 돌려 보며 방위·높이·거리를 고르면 구도 태그와 가중치를 만든다. 「지금 씬에 넣기」가 스타일 카드의 「카메라_구도」 블록을 갈아 끼운다.",
-        "en": "Turn the figure around and pick an azimuth, height and distance; the plugin writes the framing tags with their weights. “Insert into the scene” replaces the style card's “Camera_Framing” block.",
-        "ja": "人物を回しながら方位・高さ・距離を選ぶと、構図タグと重みを作ります。「現在のシーンに入れる」はスタイルカードの「カメラ_構図」ブロックを差し替えます。"
+        "ko": "이미지 구도 프롬프트를 카메라 조작으로 입력.",
+        "en": "Set the image framing prompt with camera controls.",
+        "ja": "カメラ操作で画像の構図プロンプトを入力。"
       },
       "official": true,
       "changes": [
@@ -73,9 +73,9 @@
         "ja": "タグロール"
       },
       "description": {
-        "ko": "태그 하나에서 출발해 부위별로 캐릭터 디자인·표정·포즈·씬을 danbooru 통계에서 뽑는다. 「지금 씬에 넣기」가 캐릭터 카드와 스타일 카드를 채운다. 처음 열 때 색인 약 960MB 를 내려받는다.",
-        "en": "Starts from one tag and draws design, expression, pose and scene slot by slot from danbooru statistics. “Insert into the scene” fills the character and style cards. Downloads an index of about 960MB the first time you open it.",
-        "ja": "タグ一つから出発して、デザイン・表情・ポーズ・シーンを部位ごとに danbooru の統計から引きます。「現在のシーンに入れる」がキャラクターカードとスタイルカードを埋めます。初回起動時にインデックス（約960MB）を取得します。"
+        "ko": "단부루 태그 기반으로 장르, 복식 별 랜덤 캐릭터 태그 생성.",
+        "en": "Random character tags by genre and outfit, based on danbooru tags.",
+        "ja": "danbooru タグをもとに、ジャンル・服装別のランダムなキャラクタータグを生成。"
       },
       "official": true,
       "changes": [
@@ -154,9 +154,9 @@
         "ja": "マンガ制作"
       },
       "description": {
-        "ko": "짧은 줄거리를 LLM 이 페이지와 컷으로 나누고, 위치를 지정한 NAI V5 캐릭터 프롬프트로 만화를 생성한다. 컷 배치·대사·인물 자리를 콘티에서 고친 뒤 페이지째 생성한다.",
-        "en": "An LLM splits a short story into pages and panels, then generates the manga with positioned NAI V5 character prompts. Edit the panels, dialogue and character positions on the board, then generate page by page.",
-        "ja": "短いあらすじを LLM がページとコマに分け、NAI V5 のキャラクタープロンプトに位置を指定してマンガを生成します。コマ割り・セリフ・人物の位置をネームで直してからページごとに生成します。"
+        "ko": "간단한 스토리 입력으로 LLM이 자동으로 콘티 및 만화 생성.",
+        "en": "Enter a simple story and an LLM generates the board and the manga.",
+        "ja": "簡単なストーリーを入力すると、LLM がネームとマンガを自動生成。"
       },
       "official": true,
       "changes": [
