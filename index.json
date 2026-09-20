@@ -3,7 +3,7 @@
     {
       "id": "camera",
       "repo": "mrm987/peropix-plugin-camera",
-      "tag": "v1.4.2",
+      "tag": "v1.4.3",
       "name": {
         "ko": "카메라 구도",
         "en": "Camera Framing",
@@ -16,6 +16,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.4.3",
+          "date": "2026-09-20",
+          "note": {
+            "ko": "설명을 한 문장으로 줄였습니다",
+            "en": "Shortened the description to one line",
+            "ja": "説明を一文に短くしました"
+          }
+        },
         {
           "tag": "v1.4.2",
           "date": "2026-09-13",
@@ -66,7 +75,7 @@
     {
       "id": "tag-roll",
       "repo": "mrm987/peropix-plugin-tag-roll",
-      "tag": "v1.4.0",
+      "tag": "v1.4.1",
       "name": {
         "ko": "태그 굴리기",
         "en": "Tag Roll",
@@ -79,6 +88,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.4.1",
+          "date": "2026-09-20",
+          "note": {
+            "ko": "설명을 한 문장으로 줄였습니다",
+            "en": "Shortened the description to one line",
+            "ja": "説明を一文に短くしました"
+          }
+        },
         {
           "tag": "v1.4.0",
           "date": "2026-09-13",
@@ -147,7 +165,7 @@
     {
       "id": "manga-maker",
       "repo": "mrm987/peropix-plugin-manga-maker",
-      "tag": "v1.4.0",
+      "tag": "v1.5.0",
       "name": {
         "ko": "만화 제작기",
         "en": "Manga Maker",
@@ -160,6 +178,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.5.0",
+          "date": "2026-09-20",
+          "note": {
+            "ko": "컷 안을 캐릭터 프롬프트 블록으로 나누고, 컷은 번호 칩으로 하나씩 폅니다",
+            "en": "Each panel splits into character-prompt blocks; pick a panel with its number chip",
+            "ja": "コマ内をキャラクタープロンプトのブロックに分け、コマは番号チップで一つずつ開きます"
+          }
+        },
         {
           "tag": "v1.4.0",
           "date": "2026-09-20",
