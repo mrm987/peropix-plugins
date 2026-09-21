@@ -165,7 +165,7 @@
     {
       "id": "manga-maker",
       "repo": "mrm987/peropix-plugin-manga-maker",
-      "tag": "v1.7.0",
+      "tag": "v1.8.0",
       "name": {
         "ko": "만화 제작기",
         "en": "Manga Maker",
@@ -178,6 +178,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.8.0",
+          "date": "2026-09-21",
+          "note": {
+            "ko": "기획과 생성이 도는 동안에도 화풍과 생성 옵션을 바꿀 수 있고, 생성 중에는 콘티도 고칠 수 있습니다",
+            "en": "Style and generation options can be changed while a run is going, and the board can be edited while images generate",
+            "ja": "ネーム作成中や生成中でも画風と生成オプションを変更でき、生成中はネームも編集できます"
+          }
+        },
         {
           "tag": "v1.7.0",
           "date": "2026-09-21",
