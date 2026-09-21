@@ -165,7 +165,7 @@
     {
       "id": "manga-maker",
       "repo": "mrm987/peropix-plugin-manga-maker",
-      "tag": "v1.6.0",
+      "tag": "v1.7.0",
       "name": {
         "ko": "만화 제작기",
         "en": "Manga Maker",
@@ -178,6 +178,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.7.0",
+          "date": "2026-09-21",
+          "note": {
+            "ko": "콘티를 페이지마다 나눠 묻지 않고 한 번에 짜서 빨라졌고, 출력이 끊기면 받은 페이지까지 남깁니다",
+            "en": "The board is planned in one request instead of page by page, and a cut-off response keeps the pages that arrived",
+            "ja": "ネームをページごとに分けず一度に作るので速くなり、出力が途中で切れても届いたページは残ります"
+          }
+        },
         {
           "tag": "v1.6.0",
           "date": "2026-09-20",
