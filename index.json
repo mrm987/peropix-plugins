@@ -165,7 +165,7 @@
     {
       "id": "manga-maker",
       "repo": "mrm987/peropix-plugin-manga-maker",
-      "tag": "v1.8.0",
+      "tag": "v1.8.1",
       "name": {
         "ko": "만화 제작기",
         "en": "Manga Maker",
@@ -178,6 +178,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.8.1",
+          "date": "2026-09-21",
+          "note": {
+            "ko": "콘티 출력이 끊겨도 짜인 페이지는 바로 생성할 수 있습니다",
+            "en": "Pages that were storyboarded can be generated even when the board output was cut off",
+            "ja": "ネームの出力が途中で切れても、できているページはそのまま生成できます"
+          }
+        },
         {
           "tag": "v1.8.0",
           "date": "2026-09-21",
