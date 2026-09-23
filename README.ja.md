@@ -118,13 +118,13 @@ my-plugin/
   `peropix.js` が適用します (設定で変えると再読み込みなしで追従します)。サイズは `--text-*` トークンに掛かるので、
   そのトークンを使えばプラグイン側ですることはありません。
   `peropix.js` は `peropix.action(...)`・`state()`・`scene()`・`toast()`・`theme()`・`onTheme()`・`locale()`・`onLocale()`・
-  `openCanvas()` を提供します。
+  `openCanvas()`・`comicPage()`・`applyComic()`・`onComicPage()` を提供します (後ろの三つは下の「ドロワー」)。
   アプリ外(ただのブラウザ)で開くと `peropix.inApp` が false になり、アプリ呼び出しは静かに失敗します。
 - **キャンバス** (`web/`): アプリのバックエンドが配信するので、ページからバックエンド API を直接呼べます。
   アプリに何かをさせるには親ウィンドウへメッセージを送ります:
   `parent.postMessage({ type: "peropix", id: 1, call: "action", name: "<アクション>", args: {...} }, "*")`
   返事は `{ type: "peropix", id: 1, ok, result | error }` です。`call` は `action`・`state`・`openCanvas`・
-  `toast`・`theme`・`t`・`plugin` のいずれかです。背景色はページ側で決めます — 塗らなければアプリのキャンバス背景がテーマどおりに
+  `toast`・`theme`・`t`・`plugin`・`comicPage`・`applyComic` のいずれかです。背景色はページ側で決めます — 塗らなければアプリのキャンバス背景がテーマどおりに
   透け、塗るなら `theme("--panel")` などでアプリの色を受け取ってテーマに追従させても、一色に固定しても自由です (文字色は自分で塗ってください)。
   `plugin.json` の `canvas: { width, height, minWidth, minHeight, fit }` がキャンバスフレームの初期・最小サイズと合わせ方です。
   `fit` は `"flow"`(既定: フレームは本物のブラウザウィンドウ — 文字は元の大きさ、広げるとページが流れ直す) か `"scale"`(設計幅の
@@ -149,6 +149,22 @@ my-plugin/
 - **コードなしのボタン**（任意です。多くのプラグインはボタンを置かず、プラグイン画面からのみ開きます）:
   `contributes.buttons` がスロットにボタンを追加します。`do` は `"openCanvas"` か
   `{ "action": "<アクション>", "args": {...} }` です。
+- **ドロワー** (画像編集のマンガページキャンバスに付く自分の列): `plugin.json` の
+  `contributes.drawers: [{ "slot": "editor.comic", "label": …, "icon": "<svg…>", "page": "web/drawer.html", "width": 340 }]`。
+  マンガページキャンバスのとき右のレールにアイコンが出て、押すとサイド列の隣に `page` が開きます (アプリはヘッダー・閉じる・幅だけを描きます)。
+  ドロワーのページはキャンバスと同じ窓口を使い、さらに三つを受け取ります:
+  - `peropix.comicPage()` (`call: "comicPage"`): 今のマンガキャンバス。違えば `null`。
+    `{ id, name, w, h, dir, frame, panels: [{ id, no, box, pts, frame, filled }], addon }`。座標はすべてキャンバスサイズに対する 0〜1 で、
+    `panels` は読む順(`no`)です。
+  - `peropix.applyComic(payload)` (`call: "applyComic"`): ネームを配置します。最初のページは今のキャンバスに元に戻す一回で取り消せる形で、
+    残りのページは新しいマンガキャンバスに入ります。`payload` は `{ mode: "page" | "cut", bubbles: "editor" | "nai", label, source, gen,
+    pages: [{ image?: { ws, file }, layout: "fit" | "own", panels: [{ match? | pts?, summary, base, uc, chars, notes, empty? }], bubbles }] }` です。
+    `image` があるとキャンバスがその画像サイズになり、画像が背景に敷かれます。`fit` は `comicPage()` のコマ id(`match`)に、
+    `own` はページ全体に対する 0〜1 の多角形(`pts`)でコマを並べます。コマごとの `base`・`uc`・`chars`(`{ no, name, color, prompt, uc, x, y, lines }`、
+    コマ内 0〜1)はそのコマを単独で生成するときに `gen`(モデル・ステップ・CFG・サンプラー)と一緒に使われます。`bubbles`(`{ panel, kind, text, u, v, tail }`)は
+    `bubbles: "editor"` のときだけフキダシとして配置されます。マンガ制作の `web/drawer.js` が動く例です。
+  - `peropix.onComicPage(fn)`: キャンバスやコマ構成が変わると呼ばれます (`{ type: "peropix", event: "comicPage", page }`)。
+  この窓口がない古いアプリでは `peropix.comicPage` がないので、あるか確かめてから使ってください。
 - 動く例: [カメラ構図](https://github.com/mrm987/peropix-plugin-camera) (キャンバスのみ) と
   [タグロール](https://github.com/mrm987/peropix-plugin-tag-roll) (Python の窓口と、自分でダウンロードする 960MB の索引)。公式プラグインも作者のリポジトリに置かれ、この一覧から配布されます —
   アプリに同梱されるプラグインはありません。
