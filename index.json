@@ -165,7 +165,7 @@
     {
       "id": "manga-maker",
       "repo": "mrm987/peropix-plugin-manga-maker",
-      "tag": "v1.8.1",
+      "tag": "v1.10.0",
       "name": {
         "ko": "만화 제작기",
         "en": "Manga Maker",
@@ -178,6 +178,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.10.0",
+          "date": "2026-09-28",
+          "note": {
+            "ko": "말풍선과 효과음 태그를 레퍼런스에 맞췄고, 인물끼리 특징이 섞이거나 맞닿는 장면에서 자리가 벌어지는 일을 줄였습니다",
+            "en": "Speech bubble and sound effect tags now follow the references, and characters are less likely to share traits or drift apart when they touch",
+            "ja": "吹き出しと効果音のタグを参考例に合わせ、キャラ同士の特徴の混ざりや、触れ合う場面での位置のずれを減らしました"
+          }
+        },
         {
           "tag": "v1.8.1",
           "date": "2026-09-21",
