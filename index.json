@@ -165,7 +165,7 @@
     {
       "id": "manga-maker",
       "repo": "mrm987/peropix-plugin-manga-maker",
-      "tag": "v1.10.0",
+      "tag": "v1.11.0",
       "name": {
         "ko": "만화 제작기",
         "en": "Manga Maker",
@@ -178,6 +178,15 @@
       },
       "official": true,
       "changes": [
+        {
+          "tag": "v1.11.0",
+          "date": "2026-09-28",
+          "note": {
+            "ko": "쓰이지 않던 이미지 편집 연동 코드를 정리했습니다. 사용하시는 기능에는 달라지는 것이 없습니다",
+            "en": "Cleaned up unused image editor integration code. Nothing changes in the features you use",
+            "ja": "使われていなかった画像編集との連携コードを整理しました。お使いの機能に変わりはありません"
+          }
+        },
         {
           "tag": "v1.10.0",
           "date": "2026-09-28",
