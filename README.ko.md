@@ -116,13 +116,13 @@ my-plugin/
   `peropix.js` 가 꽂습니다 (설정에서 바꾸면 새로고침 없이 따라옵니다). 글자 크기는 `--text-*` 토큰에 곱해지므로,
   그 토큰을 쓰면 플러그인이 할 일은 없습니다.
   `peropix.js` 는 `peropix.action(...)`·`state()`·`scene()`·`toast()`·`theme()`·`onTheme()`·`locale()`·`onLocale()`·
-  `openCanvas()`·`comicPage()`·`applyComic()`·`onComicPage()` 를 줍니다 (아래 postMessage 를 감싼 것. 뒤의 셋은 아래 「서랍」).
+  `openCanvas()` 를 줍니다 (아래 postMessage 를 감싼 것).
   앱 밖(그냥 브라우저)에서 열면 `peropix.inApp` 이 false 이고 앱 호출은 조용히 실패하므로, 크롬에서 만들다가 멈추지 않습니다.
 - **캔버스** (`web/`): 앱 백엔드가 서빙하므로 페이지가 백엔드 API 를 직접 부를 수 있습니다. 앱에 시킬 것은
   부모 창에 메시지로 보냅니다:
   `parent.postMessage({ type: "peropix", id: 1, call: "action", name: "<액션>", args: {...} }, "*")`
   답은 `{ type: "peropix", id: 1, ok, result | error }` 로 옵니다. `call` 은 `action`·`state`·`openCanvas`·
-  `toast`·`theme`·`t`·`plugin`·`comicPage`·`applyComic` 중 하나입니다. 바탕색은 페이지가 정합니다 — 안 칠하면 앱의 캔버스 바탕이 테마대로
+  `toast`·`theme`·`t`·`plugin` 중 하나입니다. 바탕색은 페이지가 정합니다 — 안 칠하면 앱의 캔버스 바탕이 테마대로
   비치고, 칠하려면 `theme("--panel")` 같은 앱 색을 받아 테마를 따르든 한 색으로 고정하든 자유입니다 (글자색은 직접 칠하세요).
   `plugin.json` 의 `canvas: { width, height, minWidth, minHeight, fit }` 가 캔버스 프레임의 처음·최소 크기와 맞춤 방식입니다.
   `fit` 은 `"flow"`(기본: 프레임이 진짜 브라우저 창 — 글자는 원래 크기, 창을 늘리면 페이지가 다시 흐릅니다) 또는 `"scale"`(설계 폭의
@@ -147,22 +147,6 @@ my-plugin/
 - **코드 없는 단추** (선택입니다. 대부분의 플러그인은 단추 없이 플러그인 화면에서만 엽니다):
   `contributes.buttons` 가 자리에 단추를 더합니다. `do` 는 `"openCanvas"` 또는
   `{ "action": "<액션>", "args": {...} }` 입니다.
-- **서랍** (이미지 편집의 만화 페이지 캔버스에 붙는 자기 열): `plugin.json` 의
-  `contributes.drawers: [{ "slot": "editor.comic", "label": …, "icon": "<svg…>", "page": "web/drawer.html", "width": 340 }]`.
-  만화 페이지 캔버스일 때 오른쪽 레일에 아이콘이 서고, 누르면 기둥 옆에 `page` 가 열립니다 (앱은 머리·닫기·폭만 그립니다).
-  서랍 페이지는 캔버스와 같은 창구를 쓰고, 셋을 더 받습니다:
-  - `peropix.comicPage()` (`call: "comicPage"`): 지금 만화 캔버스. 아니면 `null`.
-    `{ id, name, w, h, dir, frame, panels: [{ id, no, box, pts, frame, filled }], addon }`. 좌표는 전부 캔버스 크기에 대한 0~1 이고,
-    `panels` 는 읽는 차례(`no`)입니다.
-  - `peropix.applyComic(payload)` (`call: "applyComic"`): 콘티를 깝니다. 첫 장은 지금 캔버스에 되돌리기 한 번으로 취소되게,
-    나머지 장은 새 만화 캔버스로 들어갑니다. `payload` 는 `{ mode: "page" | "cut", bubbles: "editor" | "nai", label, source, gen,
-    pages: [{ image?: { ws, file }, layout: "fit" | "own", panels: [{ match? | pts?, summary, base, uc, chars, notes, empty? }], bubbles }] }`
-    입니다. `image` 가 있으면 캔버스가 그 그림 크기가 되고 그림이 바탕에 깔립니다. `fit` 은 `comicPage()` 의 컷 id(`match`)에,
-    `own` 은 페이지 전체에 대한 0~1 다각형(`pts`)으로 컷을 폅니다. 컷마다의 `base`·`uc`·`chars`(`{ no, name, color, prompt, uc, x, y, lines }`,
-    컷 안 0~1)는 그 컷을 따로 생성할 때 쓰이고, `gen`(모델·스텝·CFG·샘플러)도 함께 쓰입니다. `bubbles`(`{ panel, kind, text, u, v, tail }`)는
-    `bubbles: "editor"` 일 때만 말풍선으로 깔립니다. 만화 제작기의 `web/drawer.js` 가 살아 있는 예입니다.
-  - `peropix.onComicPage(fn)`: 캔버스가 바뀌거나 컷 구성이 바뀌면 불립니다 (`{ type: "peropix", event: "comicPage", page }`).
-  이 창구가 없는 앱(오래된 판)에서는 `peropix.comicPage` 가 없으니, 있는지 보고 쓰십시오.
 - 살아 있는 예: [카메라 구도](https://github.com/mrm987/peropix-plugin-camera) (캔버스만 있는 플러그인) ·
   [태그 굴리기](https://github.com/mrm987/peropix-plugin-tag-roll) (파이썬 창구 + 색인 960MB 를 스스로 받는 플러그인).
   공식 플러그인도 여느 것과 똑같이 제작자 저장소에 살고 이 목록으로 배포됩니다 — 앱에 담겨 오는 플러그인은 없습니다.

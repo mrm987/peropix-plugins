@@ -147,13 +147,13 @@ my-plugin/
   text size the user picked in settings (changing either updates your page without a reload). The size multiplies the `--text-*`
   tokens, so if you use them there is nothing for you to do.
   `peropix.js` gives you `peropix.action(...)`, `state()`, `scene()`, `toast()`, `theme()`, `onTheme()`, `locale()`,
-  `onLocale()`, `openCanvas()`, `comicPage()`, `applyComic()` and `onComicPage()` (the last three: see Drawers below).
+  `onLocale()` and `openCanvas()`.
   Opened outside the app (plain browser) `peropix.inApp` is false and app calls fail quietly, so you can build in Chrome.
 - **Canvas** (`web/`): served from the app backend, so the page can call the backend API
   directly. To make the app do something, post a message to the parent window:
   `parent.postMessage({ type: "peropix", id: 1, call: "action", name: "<action>", args: {...} }, "*")`
   and read the reply `{ type: "peropix", id: 1, ok, result | error }`. `call` is one of
-  `action`, `state`, `scene`, `openCanvas`, `toast`, `theme`, `t`, `locale`, `plugin`, `comicPage`, `applyComic`. The page owns its background: leave it unpainted and the app's
+  `action`, `state`, `scene`, `openCanvas`, `toast`, `theme`, `t`, `locale`, `plugin`. The page owns its background: leave it unpainted and the app's
   canvas background shows through, following the theme; or paint it yourself, either from `theme("--panel")` to follow the
   theme or with one fixed color (set your own text color either way).
   `canvas: { width, height, minWidth, minHeight, fit }` in `plugin.json` sets the frame's initial and minimum size and how it
@@ -185,22 +185,6 @@ my-plugin/
 - **Buttons without code** (optional; most plugins open from the plugin screen alone and declare no
   button at all): `contributes.buttons` adds a button to a slot; `do` is either
   `"openCanvas"` or `{ "action": "<action>", "args": {...} }`.
-- **Drawers** (a column of your own on the image editor's comic page canvas): `contributes.drawers` in `plugin.json`,
-  `[{ "slot": "editor.comic", "label": …, "icon": "<svg…>", "page": "web/drawer.html", "width": 340 }]`.
-  On a comic page canvas your icon appears on the right rail; clicking it opens `page` next to the side column (the app draws only
-  the header, close button and width). A drawer page uses the same bridge as a canvas and gets three more calls:
-  - `peropix.comicPage()` (`call: "comicPage"`): the current comic canvas, or `null`.
-    `{ id, name, w, h, dir, frame, panels: [{ id, no, box, pts, frame, filled }], addon }`. All coordinates are 0..1 of the canvas size;
-    `panels` come in reading order (`no`).
-  - `peropix.applyComic(payload)` (`call: "applyComic"`): places a storyboard. The first page goes onto the current canvas as a single
-    undo step; further pages open as new comic canvases. `payload` is `{ mode: "page" | "cut", bubbles: "editor" | "nai", label, source, gen,
-    pages: [{ image?: { ws, file }, layout: "fit" | "own", panels: [{ match? | pts?, summary, base, uc, chars, notes, empty? }], bubbles }] }`.
-    With `image` the canvas takes that image's size and the image becomes the background. `fit` fills the panels of `comicPage()` by id
-    (`match`); `own` lays out panels from 0..1 page polygons (`pts`). Each panel's `base`, `uc` and `chars` (`{ no, name, color, prompt, uc, x, y, lines }`,
-    0..1 inside the panel) are used when that panel is generated on its own, together with `gen` (model, steps, CFG, sampler).
-    `bubbles` (`{ panel, kind, text, u, v, tail }`) become speech balloons only when `bubbles: "editor"`. Manga Maker's `web/drawer.js` is a working example.
-  - `peropix.onComicPage(fn)`: called when the canvas or its panels change (`{ type: "peropix", event: "comicPage", page }`).
-  Older app versions do not have these, so check that `peropix.comicPage` exists before using it.
 - Working examples: [Camera Angle](https://github.com/mrm987/peropix-plugin-camera) (canvas only) and
   [Tag Roll](https://github.com/mrm987/peropix-plugin-tag-roll) (a Python router plus a 960 MB index it downloads itself). Official plugins live in their author's repository and ship through
   this list like every other plugin — nothing is bundled with the app.
