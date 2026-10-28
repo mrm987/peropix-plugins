@@ -278,6 +278,20 @@
           }
         }
       ]
+    },
+    {
+      "id": "scene-palette",
+      "repo": "wldn77138-cmd/peropix-scene-palette",
+      "tag": "v0.5.0",
+      "name": { "ko": "씬 팔레트", "en": "Scene Palette", "ja": "シーンパレット" },
+      "description": {
+        "ko": "태그 프리셋을 눌러 캐릭터 카드·스타일 카드에 블록으로 넣습니다.",
+        "en": "Toggle tag presets into character cards and the style card as blocks.",
+        "ja": "タグプリセットを押してキャラクターカード・スタイルカードにブロックとして入れます。"
+      },
+      "changes": [
+        { "tag": "v0.5.0", "date": "2026-10-28", "note": { "ko": "첫 공개 판", "en": "First public version", "ja": "最初の公開版" } }
+      ]
     }
   ]
 }
