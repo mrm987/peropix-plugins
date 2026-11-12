@@ -3,7 +3,7 @@
     {
       "id": "seq-checklist",
       "repo": "Refilliy/peropix-plugin-seq-checklist",
-      "tag": "v1.0.0",
+      "tag": "v1.3.0",
       "name": "생성 체크리스트",
       "description": "완성한 인물·씬 조합을 건너뛰고, 동반 캐릭터를 함께 생성하며, 후편집 이미지를 인물순으로 정렬합니다."
     },
